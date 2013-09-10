@@ -1,9 +1,11 @@
 <?php
 
 /**
- * The class provides methods for the realization of messages and replies.
+ * The class provides methods for the realization of comments for tasks.
+ * 
+ * Based on original class: message (class.message.php)
  *
- * @author UGd Software <info@ugdsoft.com>
+ * @author Vladimir Afanasyev <vovan.af@gmail.com>
  * @name comment
  * @version 1.0
  * @package Collabtive
@@ -15,8 +17,7 @@ class comment {
     public $mylog;
 
     /**
-     * Konstruktor
-     * Initialisiert den Eventlog
+     * Constructor
      */
     function __construct()
     {
@@ -53,7 +54,7 @@ class comment {
     }
 
     /**
-     * Edits a message
+     * Edits a comment
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @param string $text Text der Nachricht
@@ -79,7 +80,7 @@ class comment {
     }
 
     /**
-     * Deletes a message and all dependent messages
+     * Deletes a comment
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @return bool
@@ -102,7 +103,7 @@ class comment {
     }
 
     /**
-     * Return a message including its answers
+     * Return a comment with all comments in chain
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @return array $message Eigenschaften der Nachricht
@@ -159,7 +160,7 @@ class comment {
     }
 
     /**
-     * Return all answers to a given message
+     * Return all comments for given task
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @return array $replies Antworten zur Nachricht
