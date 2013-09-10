@@ -9,7 +9,7 @@
  * @name comment
  * @version 1.0
  * @package Collabtive
- * @link http://www.ugdsoft.com
+ * @link http://www.afinello.ru
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
 
