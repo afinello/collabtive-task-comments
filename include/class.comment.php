@@ -17,7 +17,8 @@ class comment {
     public $mylog;
 
     /**
-     * Constructor
+     * Konstruktor
+     * Initialisiert den Eventlog
      */
     function __construct()
     {
@@ -54,7 +55,7 @@ class comment {
     }
 
     /**
-     * Edits a comment
+     * Edits a message
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @param string $text Text der Nachricht
@@ -80,7 +81,7 @@ class comment {
     }
 
     /**
-     * Deletes a comment
+     * Deletes a message and all dependent messages
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @return bool
@@ -103,7 +104,7 @@ class comment {
     }
 
     /**
-     * Return a comment with all comments in chain
+     * Return a message including its answers
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @return array $message Eigenschaften der Nachricht
@@ -160,7 +161,7 @@ class comment {
     }
 
     /**
-     * Return all comments for given task
+     * Return all answers to a given message
      *
      * @param int $id Eindeutige Nummer der Nachricht
      * @return array $replies Antworten zur Nachricht
