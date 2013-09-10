@@ -15,16 +15,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Database: `flow`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tasks_comments`
---
-
 CREATE TABLE IF NOT EXISTS `tasks_comments` (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `task` int(10) NOT NULL DEFAULT '0',
