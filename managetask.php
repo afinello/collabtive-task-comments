@@ -352,6 +352,22 @@ if ($action == "addform") {
     $mytask = new task();
     $task = $mytask->getIcal($userid);
 } elseif ($action == "comment") {
+	//check for permissions
+	if (!$userpermissions["tasks"]["view"]) {
+        $errtxt = $langfile["nopermission"];
+        $noperm = $langfile["accessdenied"];
+        $template->assign("errortext", "$errtxt<br>$noperm");
+        $template->display("error.tpl");
+        die();
+    }
+    if (!chkproject($userid, $id)) {
+        $errtxt = $langfile["notyourproject"];
+        $noperm = $langfile["accessdenied"];
+        $template->assign("errortext", "$errtxt<br>$noperm");
+        $template->display("error.tpl");
+        die();
+    }
+	
 	$tagobj = new tags();
 	$tags = getArrayVal($_POST, "tags");
     $tags = $tagobj->formatInputTags($tags);
@@ -371,8 +387,13 @@ if ($action == "addform") {
             $msg->attachFile(0, $themsg, $id);
         }
 		*/
+		
 		if ($settings["mailnotify"])
         {
+			//load task inf to get task title
+			$mytask = new task();
+			$task = $mytask->getTask( $tid );
+		
             $sendto = getArrayVal($_POST, "sendto");
             $usr = (object) new project();
             $users = $usr->getProjectMembers($id, 10000);
@@ -394,14 +415,14 @@ if ($action == "addform") {
                         {
                             // send email
                             $themail = new emailer($settings);
-							$themail->send_mail($user["email"], $langfile["messagewasaddedsubject"], $langfile["hello"] . " " . $user["name"] . ",<br /><br/>" . $langfile["messagewasaddedtext"] . "<br /><br />" . $message . "<br /><br /><a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">View task details</a>");
+							$themail->send_mail($user["email"], $langfile["commentwasaddedsubject"] . ' ' . $task["title"], 
+								$langfile["hello"] . " " . $user["name"] . ",<br /><br/>" . $langfile["commentwasaddedtext"] . " " . $task["title"] . "<br/><br/>" . $message . "<br /><br /><a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">View task details</a>");
                         }
-                    }
-                    else
-                    {
+                    } else {
                         // send email
                         $themail = new emailer($settings);
-						$themail->send_mail($user["email"], $langfile["messagewasaddedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["messagewasaddedtext"] . "<br /><br />". $message . "<br /><br /><a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">View task details</a>");
+						$themail->send_mail($user["email"], $langfile["commentwasaddedsubject"] . ' ' . $task["title"], 
+								$langfile["hello"] . ",<br /><br/>" . $langfile["commentwasaddedtext"] . " " . $task["title"] . "<br/><br/>" . $message . "<br /><br /><a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">View task details</a>");
                     }
                 }
             }
